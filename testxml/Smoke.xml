@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RR Smoke Suite">
+	<test name="RR Smoke Test">
+		<classes>
+
+			<class name="com.learningservices.testscripts.K2uxTopMenu">
+			</class>
+		<!--<class name="com.learningservices.testscripts.Login">-->
+				<!--<methods>
+					<include name="jsscripts.txt"></include>
+				</methods>-->
+			<!--</class>-->
+			
+		</classes>
+	</test>
+</suite>
