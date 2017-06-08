@@ -61,6 +61,24 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	@FindBy(xpath = "//img[@csp-src = 'https://content.stg-openclass.com/eps/pearson-reader/api/item/4041ba39-ab8a-44de-ab2b-4ec79c4562a1/1/file/images/cover_thumbnail.jpg']")
 	public static WebElement bookOne;
 
+	@FindBy(xpath = "//*[contains(text(), 'Copyright')]")
+	public static WebElement bookOne_copyright;
+	
+	@FindBy(xpath = "//*[contains(text(), 'To the Student')]")
+	public static WebElement bookOne_tothestudent;
+	
+	@FindBy(xpath = "//*[contains(text(), 'To the Instructor')]")
+	public static WebElement bookOne_totheinstructor;
+	
+	@FindBy(xpath = "//*[contains(text(), 'An Introduction to')]")
+	public static WebElement bookOne_anintro;
+	
+	@FindBy(xpath = "//*[contains(text(), 'Ancillaries')]")
+	public static WebElement bookOne_ancillaries;
+	
+	@FindBy(xpath = "//h2[@class = 'sidebar-menu-item-header']")
+	public static WebElement bookOne_glossary_header;
+	
 	@FindBy(xpath = ".//*[@id='grid-view']/div/div[1]/div/div[2]/a/img")
 	public static WebElement classicBookOne;
 
@@ -120,38 +138,41 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void clickBookOne() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].style.border='3px solid red'", printable_book);
 		executor.executeScript("arguments[0].click();", bookOne);
-		Thread.sleep(7000);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		if (driver.findElement(By.xpath(".//*[@id='page-number']")) != null) {
-			Log.message("Page Number Element is present, First book is open!", driver);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (K2uxBookPage.nextpagebutton.isEnabled()) {
+			Log.message("Next Page button is present, First book is open!", driver);
 		} else {
-			Log.message("Page Number Element is absent, book not loaded!", driver);
+			Log.message("Next Page button is absent, book not loaded!", driver);
 		}
 
 	}
 
-	public void clickPrintableBook() throws InterruptedException {
+	public void clickPrintableBook() {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("window.scrollTo(0," + printable_book.getLocation().y + ")"); 
+		executor.executeScript("arguments[0].style.border='3px solid red'", printable_book);
 		executor.executeScript("arguments[0].click();", printable_book);
-		Thread.sleep(7000);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		if (driver.findElement(
-				By.xpath(".//*[@id='bookCont']/div/div/rr-book-navigation-bar/div/div[2]/div[2]/button")) != null) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (K2uxBookPage.nextpagebutton.isEnabled()) {
 			Log.message("Next Page button is present, book is open!", driver);
 		} else {
 			Log.message("Next Page button is absent, book is not open!", driver);
 		}
 	}
 
-	public void clickNonPrintableBook() throws InterruptedException {
+	public void clickNonPrintableBook() {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("window.scrollTo(0," + nonPrintable_book.getLocation().y + ")"); 
+		executor.executeScript("arguments[0].style.border='3px solid red'", nonPrintable_book);
 		executor.executeScript("arguments[0].click();", nonPrintable_book);
-		Thread.sleep(7000);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		if (driver.findElement(
-				By.xpath(".//*[@id='bookCont']/div/div/rr-book-navigation-bar/div/div[2]/div[2]/button")) != null) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (K2uxBookPage.nextpagebutton.isEnabled()) {
 			Log.message("Next Page button is present, book is open!", driver);
 		} else {
 			Log.message("Next Page button is absent, book is not open!", driver);
@@ -159,50 +180,54 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void bookscount() {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (k2avatarButton.isEnabled()){
 		List<WebElement> numberofbooks = driver.findElements(By.tagName("img"));
 		int booksCount = numberofbooks.size();
 		Log.message("Number of Books are: " + booksCount);
+		}
 	}
 
 	public void select_random_book() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (k2avatarButton.isEnabled()){
 		List<WebElement> books = driver.findElements(By.tagName("img"));
 		Random r = new Random();
 		int randomBook = r.nextInt(books.size());
 		// Getting a random book that is between 0 and (list's size)-1
 		Log.message("The book to be opened has the number on bookshelf: " + randomBook);
-
-		// WebDriverWait wait = new WebDriverWait(driver, 20);
 		boolean bool = books.get(randomBook).isDisplayed();
 		Log.message("Random Book condition to be clickable is: " + bool);
-		// wait.until(ExpectedConditions.elementToBeClickable(books.get(randomBook)));
-
+	
 		if (!bool) {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			executor.executeScript("window.scrollTo(0," + printable_book.getLocation().y + ")"); 
+			executor.executeScript("arguments[0].style.border='3px solid red'", printable_book);
 			executor.executeScript("arguments[0].click();", printable_book);
 			Log.message("Opening printable book!");
-			Thread.sleep(7000);
-			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			if (driver.findElement(
-					By.xpath(".//*[@id='bookCont']/div/div/rr-book-navigation-bar/div/div[2]/div[2]/button")) != null) {
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			if (K2uxBookPage.nextpagebutton.isEnabled()) {
 				Log.message("Next Page button is present, book is open!", driver);
 			} else {
 				Log.message("Next Page button is absent, book is not open!", driver);
 			}
 		} else {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			executor.executeScript("window.scrollTo(0," + books.get(randomBook).getLocation().y + ")"); 
+			executor.executeScript("arguments[0].style.border='3px solid red'", books.get(randomBook));
 			executor.executeScript("arguments[0].click();", books.get(randomBook));
 			// Clicking on the random book in the list of bookshelf.
 			Log.message("Opening the above mentioned book!");
-			Thread.sleep(7000);
-			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-			if (driver.findElement(
-					By.xpath(".//*[@id='bookCont']/div/div/rr-book-navigation-bar/div/div[2]/div[2]/button")) != null) {
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			if (K2uxBookPage.nextpagebutton.isEnabled()) {
 				Log.message("Next Page button is present, book is open!", driver);
 			} else {
 				Log.message("Next Page button is absent, book is not open!", driver);
 			}
 		}
-	}
+		}
+		}
+	
 
 	public boolean isTextPresent(String text) {
 		try {

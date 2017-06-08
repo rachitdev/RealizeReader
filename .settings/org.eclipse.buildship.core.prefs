@@ -1,6 +1,6 @@
 build.commands=org.eclipse.jdt.core.javabuilder
 connection.arguments=
-connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
+connection.gradle.distribution=GRADLE_DISTRIBUTION(LOCAL_INSTALLATION(C\:\\Users\\rachitdev\\scoop\\apps\\gradle\\3.5))
 connection.java.home=null
 connection.jvm.arguments=
 connection.project.dir=

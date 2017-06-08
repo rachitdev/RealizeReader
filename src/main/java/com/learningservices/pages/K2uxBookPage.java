@@ -2,6 +2,8 @@ package com.learningservices.pages;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -12,7 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import com.learningservices.utils.Log;
-import com.learningservices.utils.WaitUtil;
+//import com.learningservices.utils.WaitUtil;
 
 /**
  * @author rachit.d
@@ -27,20 +29,20 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	/** The driver. */
 	private WebDriver driver;
 
-	@FindBy(xpath = "//button[@class = 'rr-logo-button']")
+	@FindBy(css = ".rr-logo-button")
 	public static WebElement backtobookshelf;
 
 	@FindBy(css = "#menu-item-0")
 	public static WebElement tableofcontent;
 
-	@FindBy(xpath = "//button[@id = 'sideBarClose']")
-	public static WebElement closetableofcontent;
+	@FindBy(css = "#sideBarClose")
+	public static WebElement closetableofcontent_glossary;
 
 	@FindBy(css = "#menu-item-1")
 	public static WebElement glossary;
 
-	@FindBy(xpath = "//button[@class = 'item toc']")
-	public static WebElement closeglossary;
+//	@FindBy(css = "#sideBarClose")
+//	public static WebElement closeglossary;
 
 	@FindBy(css = "#settingsBtn")
 	public static WebElement settings;
@@ -129,25 +131,34 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void click(WebDriver driver, WebElement element) throws InterruptedException {
-
+	public void click(WebDriver driver, WebElement element) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (element.isEnabled()) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
 		executor.executeScript("arguments[0].click();", element);
-		Log.message("Clicked on " + element, driver);
 		executor.executeScript("arguments[0].style.border=''", element);
-		Thread.sleep(500);
+		Log.message("Clicked on " + element, driver);
+		}else{
+			Log.message(element + " not found!");
+		}
 	}
 
 	public void clear(WebDriver driver, WebElement element) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (element.isEnabled()) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
 		element.clear();
 		executor.executeScript("arguments[0].style.border=''", element);
-		Log.message("Clicked on " + element, driver);
+		Log.message("Cleared " + element, driver);
+		}else{
+			Log.message(element + " not found!", driver);
+		}
 	}
 
 	public void randomPageNumberInput() {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		Random r = new Random();
 		int randomNumber = r.ints(1, 50, 100).findFirst().getAsInt();
 		String page_num = String.valueOf(randomNumber);
@@ -156,6 +167,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void verifyPageNumber() {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		String num1 = pagenumber.getAttribute("ng-model");
 		String num = pagenumber.getText();
 		if (num != null) {
@@ -167,24 +179,31 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void getBGColor(WebDriver driver, WebElement element) {
-		WaitUtil.waitForIsElementEnabled(driver, element);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (element.isDisplayed()) {
 		String color = element.getCssValue("background-color");
 		Log.message("The background color of " + element + " is " + color, driver);
+		}else{
+			Log.message(element + " not found!");
+		}
 	}
 
 	public void getoutlinecolor(WebDriver driver, WebElement element) {
-		WaitUtil.waitForIsElementEnabled(driver, element);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (element.isDisplayed()) {
 		String color = element.getCssValue("border-color");
 		Log.message("The outline of " + element + " is of color " + color, driver);
-
+		}else{
+			Log.message(element + " not found!");
+		}
 	}
 
 	public void verify(WebDriver driver, WebElement element) {
-		if (element != null) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		if (element.isDisplayed()) {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].style.border='3px solid red'", element);
 			Log.message(element + " is present!", driver);
-
 			executor.executeScript("arguments[0].style.border=''", element);
 		} else {
 			Log.message(element + " is absent!", driver);
@@ -195,13 +214,10 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		List<WebElement> elements = driver.findElements(By.tagName(tagname));
 		int eleCount = elements.size();
 		Log.message("Number of elements are: " + eleCount);
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		executor.executeScript("arguments[0].style.border='3px solid red'", elements);
-		Thread.sleep(3000);
-		executor.executeScript("arguments[0].style.border=''", elements);
 	}
 
 	public void sendKeys(WebDriver driver, WebElement element, String str) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
 		element.sendKeys(str);
@@ -210,6 +226,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void press_enter(WebDriver driver, WebElement element) throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
 		element.sendKeys(Keys.RETURN);
@@ -219,12 +236,14 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void hover(WebDriver driver, WebElement element) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		Actions action = new Actions(driver);
 		action.moveToElement(element).build().perform();
 		Log.message("Hovering On " + element, driver);
 	}
 
 	public void fontSize(WebDriver driver, WebElement element) {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		String fontsize = element.getCssValue("font-size");
 		Log.message("Font Size is: " + fontsize, driver);
 

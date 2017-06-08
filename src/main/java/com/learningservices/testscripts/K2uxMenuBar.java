@@ -4,10 +4,12 @@
 package com.learningservices.testscripts;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.learningservices.pages.K2uxBookPage;
@@ -28,12 +30,17 @@ public class K2uxMenuBar extends BrowserDriver {
 		getWebDriver().get(applicationUrl);
 	}
 	
+	@BeforeMethod()
+	public void waitForElements(){
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	}
+	
 	@AfterClass()
 	public void driverQuit(){
 		driver.quit();
 	}
 	
-	@Test(enabled = false, priority = 1, description = "TC ID 277589")
+	@Test(enabled = true, priority = 1, description = "TC ID 277589")
 	public void verifyToggle() throws InterruptedException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		// tc_ID :277589

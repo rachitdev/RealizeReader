@@ -53,7 +53,7 @@ import org.testng.xml.XmlTest;
 import com.learningservices.ui.BrowserType;
 import com.learningservices.ui.gridconfig.IGridCapabilitiesConfiguration;
 import com.learningservices.ui.gridconfig.SauceLabsCapabilitiesConfiguration;
-import com.saucelabs.selenium.client.factory.SeleniumFactory;
+//import com.saucelabs.selenium.client.factory.SeleniumFactory;
 
 /**
  * WebdriverFactory class used to get a web driver instance, depends on the user
@@ -224,6 +224,7 @@ public class WebDriverFactory {
 	 *            name of the test to pass to the grid
 	 * @return remote WebDriver instance
 	 */
+	@SuppressWarnings("null")
 	public static WebDriver newWebDriverInstanceFromEnvironment(String testName) {
 		// right now we only support sauce labs
 
@@ -458,6 +459,7 @@ public class WebDriverFactory {
 	 * @param browserWithPlatform - browser and platform info
 	 * @param callerMethodName - Test name to be logged in report
 	 */
+	@SuppressWarnings("unused")
 	public static WebDriver get(String browserWithPlatform, String...  callerMethodName) {
 
 		String browser = null;
