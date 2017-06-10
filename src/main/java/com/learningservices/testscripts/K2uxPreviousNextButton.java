@@ -36,7 +36,7 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		driver.quit();
 	}
 	
-	@Test(enabled = true, priority = 10, description = "TC ID 284512, 284513, 284514, 284515, 284516  ")
+	@Test(enabled = true, priority = 5, description = "TC ID 284512, 284513, 284514, 284515, 284516  ")
 	public void verifybooknavigationbuttons() throws InterruptedException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);

@@ -34,7 +34,7 @@ public class K2uxBookshelf extends BrowserDriver {
 		driver.quit();
 	}
 			
-	@Test(enabled = true, priority = 3, description = "TC ID 277575, 277576, 277577")
+	@Test(enabled = true, priority = 3, description = "TC ID 277575, 277576, 277577, 277580, 277581, 277582, 277583, 277584")
 	public void verifyRRLogo() throws InterruptedException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		// tc_ID :277575

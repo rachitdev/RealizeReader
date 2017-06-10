@@ -38,6 +38,7 @@ public class EmailReport extends EmailableReporter2 {
 	static Boolean ignoreMethodeName = false;
 	public static List<String> bets = new ArrayList<String>();
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void generateReport(List<XmlSuite> xml, List<ISuite> suites, String outdir) {
 

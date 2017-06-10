@@ -36,7 +36,7 @@ public class K2uxTopMenu extends BrowserDriver {
 		driver.quit();
 	}
 	
-	@Test(enabled = true, priority = 11, description = "TC ID 284518, 284519, 284520, 284521, 284522, 284523, 284524, 284526, 284527, 284528, 284529, 284530")
+	@Test(enabled = true, priority = 6, description = "TC ID 284518, 284519, 284520, 284521, 284522, 284523, 284524, 284526, 284527, 284528, 284529, 284530")
 	public void verifyTopMenu() throws InterruptedException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);

@@ -44,7 +44,7 @@ public class K2uxMenuBar extends BrowserDriver {
 	@AfterClass()
 	public void driverQuit() throws InterruptedException{driver.quit();}
 	
-	@Test(enabled = true, priority = 12, description = "TC ID 277589")
+	@Test(enabled = true, priority = 7, description = "TC ID 277589, 277590, 277591, 277592, 277593, 277594, 277595, 277596, 277597, 277600, 277602, 277603 287969, 287970")
 	public void verifyToggle() throws InterruptedException  {
 		// tc_ID :277589
 		Log.message("Starting Test Case with tc_ID : 277589");

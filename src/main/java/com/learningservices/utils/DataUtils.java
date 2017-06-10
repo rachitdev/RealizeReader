@@ -138,6 +138,7 @@ public class DataUtils {
 	 *            test name
 	 * @return data cell value
 	 */
+	@SuppressWarnings("resource")
 	public static HashMap<String, String> testDatabyID(String testCaseId, String testClassName, String configSheetName) {
 		String filePath = "";
 		String sheetName = "";
@@ -212,6 +213,7 @@ public class DataUtils {
 	 * @return testData data
 	 * @throws IOException
 	 */
+	@SuppressWarnings("resource")
 	public static HashMap<String, String> getTestData(String filePath, String workBook, String sheetName, String testCaseId) throws IOException {
 		HSSFRow row = null;
 		HSSFCell cell = null;
@@ -284,7 +286,8 @@ public class DataUtils {
      * @return ArrayList<HashMap<String, String>> - data of the entire sheet specified
      * @throws Exception
      */
-    public static ArrayList<HashMap<String, String>> getEntireDataFromSheet(String fileName, String sheetName) throws Exception {
+    @SuppressWarnings("resource")
+	public static ArrayList<HashMap<String, String>> getEntireDataFromSheet(String fileName, String sheetName) throws Exception {
 
         HSSFRow row = null;
         HSSFCell cell = null;
