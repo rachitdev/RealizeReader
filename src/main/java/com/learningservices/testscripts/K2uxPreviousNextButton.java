@@ -4,9 +4,10 @@
 package com.learningservices.testscripts;
 
 import java.util.HashMap;
-
+import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
@@ -25,12 +26,17 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		getWebDriver().get(applicationUrl);
 	}
 	
+	@BeforeMethod()
+	public void waitForElements(){
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	}
+	
 	@AfterClass()
 	public void driverQuit(){
 		driver.quit();
 	}
 	
-	@Test(enabled = true, priority = 1, description = "TC ID 284512, 284513, 284514, 284515, 284516  ")
+	@Test(enabled = true, priority = 10, description = "TC ID 284512, 284513, 284514, 284515, 284516  ")
 	public void verifybooknavigationbuttons() throws InterruptedException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
@@ -41,20 +47,25 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		login.enterPassword(password);
 		book.click(driver, K2uxLoginPage.loginButton); //login complete.
 		login.clickBookOne();
-		Thread.sleep(10000);
 		Log.message("Starting Test Case with tc_ID : 284514");
 		// tc_ID :284514
 		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
+		Log.testCaseResult();
+		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284512");
 		// tc_ID :284512
 		book.click(driver, K2uxBookPage.nextpagebutton);
 		Thread.sleep(5000);
 		book.verifyPageNumber();
+		Log.testCaseResult();
+		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284513");
 		// tc_ID : 284513
 		book.click(driver, K2uxBookPage.previouspagebutton);
 		Thread.sleep(5000);
 		book.verifyPageNumber();
+		Log.testCaseResult();
+		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284515");
 		// tc_ID : 284515
 		book.click(driver, K2uxBookPage.pagenumber);
@@ -63,6 +74,8 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.press_enter(driver, K2uxBookPage.pagenumber);
 		Thread.sleep(5000);
 		book.verify(driver, K2uxBookPage.disablednextpagebutton);
+		Log.testCaseResult();
+		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284516");
 		// tc_ID : 284516
 		book.clear(driver, K2uxBookPage.pagenumber);

@@ -232,7 +232,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		element.sendKeys(Keys.RETURN);
 		executor.executeScript("arguments[0].style.border=''", element);
 		Log.message("Pressed Enter On element: " + element, driver);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 	}
 
 	public void hover(WebDriver driver, WebElement element) {
@@ -255,7 +255,19 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		Log.message("Switched to new Tab!");
 		String str = driver.getTitle();
 		Log.message("Title of Page (new Tab) is: " + str);
-		if (driver.findElement(By.cssSelector("#printBtn")) != null) {
+		driver.close();
+		Log.message("Closed the new Tab!");
+		driver.switchTo().window(tabs.get(0));
+		Log.message("Switched to old Tab!");
+	}
+	
+	public static void switchToNewTabAndBackandVerifyPrint(WebDriver driver) {
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(1));
+		Log.message("Switched to new Tab!");
+		String str = driver.getTitle();
+		Log.message("Title of Page (new Tab) is: " + str);
+		if (driver.findElement(By.cssSelector("#printBtn")).isDisplayed()) {
 			Log.message("Print Button is present!", driver);
 		} else {
 			Log.message("Print Button is absent!", driver);
@@ -269,7 +281,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	public static void zoom(WebDriver driver, double zoom) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("document.body.style.zoom = '" + zoom + "'"); // 1.5 represents  150%
-		Log.message("Zoomed to " + zoom * 100);
+		Log.message("Zoomed to " + zoom * 100 + " percent!");
 	}
 
 }

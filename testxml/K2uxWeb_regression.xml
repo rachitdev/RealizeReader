@@ -4,9 +4,17 @@
 <suite name="RR Smoke Suite">
 	<test name="RR Smoke Test">
 		<classes>
-
+			<class name="com.learningservices.testscripts.K2uxLogin">
+			</class>
+			<class name="com.learningservices.testscripts.K2uxBookshelf">
+			</class>
+			<class name="com.learningservices.testscripts.K2uxPreviousNextButton">
+			</class>
 			<class name="com.learningservices.testscripts.K2uxTopMenu">
 			</class>
+			<class name="com.learningservices.testscripts.K2uxMenuBar">
+			</class>
+			
 		<!--<class name="com.learningservices.testscripts.Login">-->
 				<!--<methods>
 					<include name="jsscripts.txt"></include>

@@ -100,7 +100,7 @@ sourceSets {
     }
 }
 
-task doUITest (type: Test) {
+task test_k2ux_web (type: Test) {
 	systemProperties System.getProperties()
     testClassesDir = file('build/classes/main')	
     classpath = sourceSets.main.runtimeClasspath
@@ -108,7 +108,7 @@ task doUITest (type: Test) {
     testLogging.showStandardStreams = true
     
     useTestNG {
-       suites "testxml/Smoke.xml"
+       suites "testxml/K2uxWeb_regression.xml"
     }
     //print ">>Executing $testXMLFileName tests"
 }

@@ -4,23 +4,27 @@
 package com.learningservices.testscripts;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
 import com.learningservices.utils.BrowserDriver;
 import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.Log;
 
-//import com.learningservices.utils.WebDriverFactory;
-
 public class K2uxLogin extends BrowserDriver {
 	
 	@BeforeClass()
 	public void driverInitialize(){
 		getWebDriver().get(applicationUrl);
+	}
+	
+	@BeforeMethod()
+	public void waitForElements(){
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 	
 	@AfterClass()
@@ -39,9 +43,7 @@ public class K2uxLogin extends BrowserDriver {
 			String username = userData.get("Username");
 			String password = userData.get("Password");
 			login.enterUsername(username);
-			Log.message("Entered username "+ username, driver);
 			login.enterPassword(password);
-			Log.message("Entered password "+ password, driver);
 			book.click(driver, K2uxLoginPage.loginButton);
 			book.click(driver, K2uxLoginPage.k2avatarButton);
 			book.verify(driver, K2uxLoginPage.about);			
@@ -63,32 +65,27 @@ public class K2uxLogin extends BrowserDriver {
 			String username = userData.get("Username");
 			String password = userData.get("Password");
 			login.enterUsername(username);
-			Log.message("Entered username "+ username, driver);
 			login.enterPassword(password);
-			Log.message("Entered password "+ password, driver);
 			book.click(driver, K2uxLoginPage.loginButton); //login complete.
 			book.verify(driver, K2uxLoginPage.k2avatarButton); //K2UX Avatar is present.
-			login.bookscount(); //Number of books present on the bookshelf.
-			login.clickBookOne();
-			Thread.sleep(10000);
+			book.click(driver, K2uxLoginPage.bookOne);
 			//login.select_random_book(); //randomly a book is selected.
+			Thread.sleep(20000);
 			book.verify(driver, K2uxLoginPage.k2avatarButton);
 			//verification of avatar on different page starts.
-			book.click(driver, K2uxBookPage.pagenumber);
+			book.verify(driver, K2uxBookPage.pagenumber);
 			book.clear(driver, K2uxBookPage.pagenumber);
 			book.randomPageNumberInput();
 			book.press_enter(driver, K2uxBookPage.pagenumber);
 			book.verify(driver, K2uxLoginPage.k2avatarButton);
 			//verification of avatar on different page ends.
 			//verification of avatar on different page starts.
-			book.click(driver, K2uxBookPage.pagenumber);
 			book.clear(driver, K2uxBookPage.pagenumber);
 			book.randomPageNumberInput();
 			book.press_enter(driver, K2uxBookPage.pagenumber);
 			book.verify(driver, K2uxLoginPage.k2avatarButton);
 			//verification of avatar on different page ends.
 			//verification of avatar on different page starts.
-			book.click(driver, K2uxBookPage.pagenumber);
 			book.clear(driver, K2uxBookPage.pagenumber);
 			book.randomPageNumberInput();
 			book.press_enter(driver, K2uxBookPage.pagenumber);
