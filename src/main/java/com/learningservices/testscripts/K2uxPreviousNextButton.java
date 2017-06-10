@@ -55,14 +55,14 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		Log.message("Starting Test Case with tc_ID : 284512");
 		// tc_ID :284512
 		book.click(driver, K2uxBookPage.nextpagebutton);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		book.verifyPageNumber();
 		Log.testCaseResult();
 		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284513");
 		// tc_ID : 284513
 		book.click(driver, K2uxBookPage.previouspagebutton);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		book.verifyPageNumber();
 		Log.testCaseResult();
 		Log.endTestCase();	
@@ -72,7 +72,7 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.clear(driver, K2uxBookPage.pagenumber);
 		book.sendKeys(driver, K2uxBookPage.pagenumber, "490");
 		book.press_enter(driver, K2uxBookPage.pagenumber);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		book.verify(driver, K2uxBookPage.disablednextpagebutton);
 		Log.testCaseResult();
 		Log.endTestCase();	
