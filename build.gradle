@@ -74,7 +74,7 @@ dependencies {
 	compile ('log4j:log4j:1.2.17')
 	compile ('com.relevantcodes:extentreports:2.40.2')
 	//compile group ('com.saucelabs.selenium', name: 'selenium-client-factory', version: '1.3')
-	compile group: 'com.saucelabs.selenium', name: 'selenium-client-factory-parent', version: '1.3'
+	//compile group: 'com.saucelabs.selenium', name: 'selenium-client-factory-parent', version: '1.3'
 	
 		
 	compile ('com.sikulix:sikulixapi:1.1.1-SNAPSHOT') {
