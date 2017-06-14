@@ -8,13 +8,16 @@ import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
 import com.learningservices.utils.BrowserDriver;
 import com.learningservices.utils.DataUtils;
+import com.learningservices.utils.EmailReport;
 import com.learningservices.utils.Log;
 
+@Listeners(EmailReport.class)
 public class K2uxLogin extends BrowserDriver {
 	
 	@BeforeClass()

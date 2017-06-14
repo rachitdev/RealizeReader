@@ -15,8 +15,8 @@ version = '0.0.1-SNAPSHOT'
 compileJava.options.encoding = 'UTF-8'
 
 if (!hasProperty('nexusUsername')) {
-    ext.nexusUsername = ''
-    ext.nexusPassword = ''
+    ext.nexusUsername = 'vdev9r1'
+    ext.nexusPassword = 'Apr@2017'
 }
 
 sourceCompatibility = 1.8
@@ -32,19 +32,17 @@ repositories {
     mavenLocal()
     mavenCentral()
 	//TODO document nexus usage and enable this.
- /* maven {
+  maven {
 		credentials {
 			username nexusUsername
 			password nexusPassword
 		}
 		url "https://devops-tools.pearson.com/nexus-deps/content/groups/all-deps"
-	} */
+	} 
 	maven {
 		url "http://oss.sonatype.org/content/groups/public"
 	}
-	maven{
-	url "https://mvnrepository.com/artifact/com.saucelabs.selenium/selenium-client-factory-parent"
-	}
+
 }
 
 configurations {
@@ -54,7 +52,7 @@ configurations {
 defaultTasks 'makePretty', 'compileJava', 'check', 'test'
 
 dependencies {
-    //compile ('com.pearson:test-automation-framework:0.0.8-SNAPSHOT')
+    compile ('com.pearson:test-automation-framework:0.0.8-SNAPSHOT')
     compile ('org.testng:testng:6.10')
     compile ('org.jsoup:jsoup:1.10.1')
     compile ('org.seleniumhq.selenium:selenium-java:3.4.0')
@@ -73,9 +71,7 @@ dependencies {
 	compile ('com.googlecode.json-simple:json-simple:1.1.1')
 	compile ('log4j:log4j:1.2.17')
 	compile ('com.relevantcodes:extentreports:2.40.2')
-	//compile group ('com.saucelabs.selenium', name: 'selenium-client-factory', version: '1.3')
-	//compile group: 'com.saucelabs.selenium', name: 'selenium-client-factory-parent', version: '1.3'
-	
+
 		
 	compile ('com.sikulix:sikulixapi:1.1.1-SNAPSHOT') {
         exclude module: '${sikulix.libs}'

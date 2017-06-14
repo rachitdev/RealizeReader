@@ -30,7 +30,8 @@ public class EmailReport extends EmailableReporter2 {
 
 	PrintWriter pWriter;
 	String fileName;
-
+	private static boolean isReportClosed = false;
+	
 	static String unescapePattern = "\\<div\\sclass=\"messages\">(.*)\\<\\/div\\>";
 	static String unescapeSauceLink = "\\<tr\\sclass=\"param\\sstripe\">(.*)\\<\\/tr\\>";
 	static String startTestTitle = "<div class=\"test-title\"> <strong><font size = \"3\" color = \"#000080\">";
@@ -41,7 +42,12 @@ public class EmailReport extends EmailableReporter2 {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void generateReport(List<XmlSuite> xml, List<ISuite> suites, String outdir) {
-
+		
+		if (isReportClosed) {
+			return;
+		}
+		Log.message("Generating report...");
+		
 		super.generateReport(xml, suites, outdir);
 		File eScripts = new File("jsscripts.txt");
 		File eCSS = new File("ReportCSS.txt");
@@ -405,7 +411,8 @@ public class EmailReport extends EmailableReporter2 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		isReportClosed = true;
+		Log.message("Report generation completed");
 	}
 
 	/**
