@@ -194,11 +194,14 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 		int randomBook = r.nextInt(books.size());
 		// Getting a random book that is between 0 and (list's size)-1
 		Log.message("The book to be opened has the number on bookshelf: " + randomBook);
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].scrollIntoView(true);", books.get(randomBook));
+		Thread.sleep(10000);
+		executor.executeScript("arguments[0].style.border='3px solid red'", books.get(randomBook));
 		boolean bool = books.get(randomBook).isDisplayed();
 		Log.message("Random Book condition to be clickable is: " + bool);
 	
 		if (!bool) {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].scrollIntoView(true);", printable_book);
 			Thread.sleep(5000);
 			executor.executeScript("arguments[0].style.border='3px solid red'", printable_book);
@@ -210,10 +213,6 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 				Log.message("Next Page button is absent, book is not open!", driver);
 			}
 		} else {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].scrollIntoView(true);", books.get(randomBook));
-			Thread.sleep(5000);
-			executor.executeScript("arguments[0].style.border='3px solid red'", books.get(randomBook));
 			executor.executeScript("arguments[0].click();", books.get(randomBook));
 			// Clicking on the random book in the list of bookshelf.
 			Log.message("Opening the above mentioned book!");
