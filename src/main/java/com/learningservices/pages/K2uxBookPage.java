@@ -1,10 +1,11 @@
 package com.learningservices.pages;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +15,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import com.learningservices.utils.Log;
-//import com.learningservices.utils.WaitUtil;
 
 /**
  * @author rachit.d
@@ -40,9 +40,6 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 
 	@FindBy(css = "#menu-item-1")
 	public static WebElement glossary;
-
-//	@FindBy(css = "#sideBarClose")
-//	public static WebElement closeglossary;
 
 	@FindBy(css = "#settingsBtn")
 	public static WebElement settings;
@@ -110,15 +107,13 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 
 	@Override
 	protected void isLoaded() throws Error {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		try {
-			if (pagenumber.isDisplayed()) {
+			if (pagenumber.isEnabled()) {
 				isPageLoaded = true;
 				Log.message("Book page is displayed!", driver);
-			} else {
-				classicPageNumber.isDisplayed();
-				isPageLoaded = true;
-				Log.message("Book page is displayed!", driver);
-			}
+			} 
+			
 		} catch (Exception e1) {
 			isPageLoaded = false;
 			throw new Error();
@@ -232,7 +227,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		element.sendKeys(Keys.RETURN);
 		executor.executeScript("arguments[0].style.border=''", element);
 		Log.message("Pressed Enter On element: " + element, driver);
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 	}
 
 	public void hover(WebDriver driver, WebElement element) {
@@ -278,11 +273,18 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		Log.message("Switched to old Tab!");
 	}
 
-	public static void zoom(WebDriver driver, double zoom) {
+	public static void zoom(WebDriver driver, double zoom)
+	{
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("document.body.style.zoom = '" + zoom + "'"); // 1.5 represents  150%
 		Log.message("Zoomed to " + zoom * 100 + " percent!");
 	}
-
+	
+	public static void setBrowserSize(WebDriver driver, int x, int y) throws IOException
+	{
+		Dimension dimension = new Dimension(x, y);
+		driver.manage().window().setSize(dimension);
+		Log.message("Zoomed to " + x,y + " pixels!");
+	}
 }
 

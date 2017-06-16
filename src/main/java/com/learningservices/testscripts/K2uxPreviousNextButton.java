@@ -40,8 +40,9 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		driver.quit();
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 5, description = "TC ID 284512, 284513, 284514, 284515, 284516  ")
-	public void verifybooknavigationbuttons() throws InterruptedException  {
+	public void verifybooknavigationbuttons() throws InterruptedException, Exception  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
@@ -58,15 +59,16 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284512");
 		// tc_ID :284512
-		book.click(driver, K2uxBookPage.nextpagebutton);
-		Thread.sleep(10000);
+		K2uxBookPage.nextpagebutton.click();
+		//book.click(driver, K2uxBookPage.nextpagebutton);
+		Thread.sleep(5000);
 		book.verifyPageNumber();
 		Log.testCaseResult();
 		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284513");
 		// tc_ID : 284513
 		book.click(driver, K2uxBookPage.previouspagebutton);
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		book.verifyPageNumber();
 		Log.testCaseResult();
 		Log.endTestCase();	
@@ -76,7 +78,7 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.clear(driver, K2uxBookPage.pagenumber);
 		book.sendKeys(driver, K2uxBookPage.pagenumber, "490");
 		book.press_enter(driver, K2uxBookPage.pagenumber);
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		book.verify(driver, K2uxBookPage.disablednextpagebutton);
 		Log.testCaseResult();
 		Log.endTestCase();	
@@ -85,9 +87,18 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.clear(driver, K2uxBookPage.pagenumber);
 		book.randomPageNumberInput();
 		book.press_enter(driver, K2uxBookPage.pagenumber);
-		Thread.sleep(5000);
 		book.verifyPageNumber();
 		book.click(driver, K2uxBookPage.backtobookshelf);
+		Log.message("Starting Test Case with tc_ID : 284517");
+		// tc_ID : 284517
+		login.select_random_book();
+		book.setBrowserSize(driver, 800, 567);
+		book.randomPageNumberInput();
+		book.verify(driver, K2uxBookPage.nextpagebutton);
+		book.verify(driver, K2uxBookPage.previouspagebutton);
+		book.click(driver, K2uxBookPage.backtobookshelf);
+		Log.testCaseResult();
+		Log.endTestCase();	
 		Thread.sleep(5000);
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);

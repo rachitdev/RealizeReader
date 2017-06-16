@@ -30,11 +30,16 @@ public class BrowserActions {
         Log.event("Sending Key as: " + inputTxt);
         element.sendKeys(inputTxt);
     }
-    
+    /** Enter the text into the WebElement without clearing previous text.
+    *
+    * @param inputTxt the input txt
+    * @param element the element */
     public static void typeInTextBox(String inputTxt, WebElement element) {
-        Log.event("Sending Key as: " + inputTxt);
-        element.sendKeys(inputTxt);
-    }
+    		Log.event("Sending Key as: " + inputTxt);
+	        element.sendKeys(inputTxt);
+		
+	}
+
 
     /** Type.
      *
@@ -291,8 +296,6 @@ public class BrowserActions {
     public static void scroll(WebDriver driver) {
         JavascriptExecutor jsx = (JavascriptExecutor) driver;
         jsx.executeScript("window.scrollBy(0,150)", "");
-    	
-    	jsx.executeScript("scroll(0, -300);");
     }
     
     public static void scroll(WebDriver driver, String pixel) {
@@ -316,21 +319,9 @@ public class BrowserActions {
         Log.event("Clicking on Back button in browser");
         driver.navigate().back();
     }
+
+
     
-    public static void switchToNewTabAndBack(WebDriver driver) {
-    	ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-        Log.message("Switched to new Tab!");
-        String str = driver.getTitle();
-		Log.message("Title of Page (new Tab) is: " + str);
-		if(driver.findElement(By.cssSelector("#printBtn")) != null){
-			Log.message("Print Button is present!", driver);
-			}else{
-			Log.message("Print Button is absent!", driver);
-			}
-        driver.close();
-        Log.message("Closed the new Tab!");
-        driver.switchTo().window(tabs.get(0));
-        Log.message("Switched to old Tab!");
-    }
+    
+   
 }

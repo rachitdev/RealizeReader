@@ -2,8 +2,6 @@ package com.learningservices.utils;
 
 import java.util.Properties;
 
-import com.learningservices.utils.Log;
-
 public class Configurator {
 
     private static boolean CONFIG_LOADED = false;
