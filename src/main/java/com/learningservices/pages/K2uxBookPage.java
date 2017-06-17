@@ -13,7 +13,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.learningservices.utils.Log;
 
 /**
@@ -52,6 +55,9 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 
 	@FindBy(css = "#page-number")
 	public static WebElement pagenumber;
+	
+	@FindBy(xpath = "//input[@aria-label = 'Page number']")
+	public static WebElement pagenumber_ng;
 
 	@FindBy(xpath = "//input[@class = 'bookPageNumber ng-pristine ng-valid ng-valid-maxlength ng-not-empty ng-touched']")
 	public static WebElement classicPageNumber;
@@ -88,16 +94,28 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 
 	@FindBy(xpath = "//button[@class = 'nav-next-small']")
 	public static WebElement nextpagebutton;
+	
+	@FindBy(xpath = "//button[@class = 'nav-next ng-binding']")
+	public static WebElement nextpagebutton_ng;
 
 	@FindBy(xpath = "//button[@class = 'nav-next-small disabled']")
 	public static WebElement disablednextpagebutton;
+	
+	@FindBy(xpath = "//button[@class = 'nav-next ng-binding disabled']")
+	public static WebElement disablednextpagebutton_ng;
 
 	@FindBy(xpath = "//button[@class = 'nav-prev-small']")
 	public static WebElement previouspagebutton;
+	
+	@FindBy(xpath = "//button[@class = 'nav-back ng-binding']")
+	public static WebElement previouspagebutton_ng;
 
 	@FindBy(xpath = "//button[@class = 'nav-prev-small disabled']")
 	public static WebElement disabledpreviouspagebutton;
 
+	@FindBy(xpath = "//button[@class = 'nav-back ng-binding disabled']")
+	public static WebElement disabledpreviouspagebutton_ng;
+	
 	@Override
 	protected void load() {
 		if (!isPageLoaded) {
@@ -107,18 +125,23 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 
 	@Override
 	protected void isLoaded() throws Error {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		try {
-			if (pagenumber.isEnabled()) {
+			wait.until(ExpectedConditions.elementToBeClickable(nextpagebutton));
+			if (nextpagebutton.isEnabled()) {
 				isPageLoaded = true;
 				Log.message("Book page is displayed!", driver);
-			} 
-			
-		} catch (Exception e1) {
+			}
+			else{
+				wait.until(ExpectedConditions.elementToBeClickable(pagenumber));
+				if (pagenumber.isEnabled()){
+					isPageLoaded = true;
+					Log.message("Bookshelf page is displayed!", driver);	
+				}}}
+			catch (Exception e1) {
 			isPageLoaded = false;
 			throw new Error();
 		}
-
 	}
 
 	public K2uxBookPage(WebDriver driver) {
@@ -127,7 +150,8 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void click(WebDriver driver, WebElement element) {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
+		wait.until(ExpectedConditions.elementToBeClickable(element));
 		if (element.isEnabled()) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
@@ -140,7 +164,8 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void clear(WebDriver driver, WebElement element) {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
+		wait.until(ExpectedConditions.elementToBeClickable(element));
 		if (element.isEnabled()) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
@@ -158,6 +183,15 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		int randomNumber = r.ints(1, 50, 100).findFirst().getAsInt();
 		String page_num = String.valueOf(randomNumber);
 		pagenumber.sendKeys(page_num);
+		Log.message("Opening Page number: " + page_num);
+	}
+	
+	public void randomPageNumberNGInput() {
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		Random r = new Random();
+		int randomNumber = r.ints(1, 50, 100).findFirst().getAsInt();
+		String page_num = String.valueOf(randomNumber);
+		pagenumber_ng.sendKeys(page_num);
 		Log.message("Opening Page number: " + page_num);
 	}
 
@@ -194,7 +228,8 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void verify(WebDriver driver, WebElement element) {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+//		WebDriverWait wait = new WebDriverWait(driver, 60);
+//		wait.until(ExpectedConditions.visibilityOf(element));
 		if (element.isDisplayed()) {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].style.border='3px solid red'", element);

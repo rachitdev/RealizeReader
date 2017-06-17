@@ -48,6 +48,7 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		K2uxBookPage book = new K2uxBookPage(driver);
 		String username = userData.get("Username");
 		String password = userData.get("Password");
+		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 		login.enterUsername(username);
 		login.enterPassword(password);
 		book.click(driver, K2uxLoginPage.loginButton); //login complete.
@@ -55,19 +56,23 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		Log.message("Starting Test Case with tc_ID : 284514");
 		// tc_ID :284514
 		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
+		book.verifyPageNumber();//the book is on page number 1
 		Log.testCaseResult();
 		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284512");
 		// tc_ID :284512
-		K2uxBookPage.nextpagebutton.click();
-		//book.click(driver, K2uxBookPage.nextpagebutton);
+		book.clear(driver, K2uxBookPage.pagenumber);
+		book.sendKeys(driver, K2uxBookPage.pagenumber, "2"); // the book is on page number 2
+		book.press_enter(driver, K2uxBookPage.pagenumber);
+		Thread.sleep(5000);
+		book.click(driver, K2uxBookPage.nextpagebutton); // the book is on page number 3
 		Thread.sleep(5000);
 		book.verifyPageNumber();
 		Log.testCaseResult();
 		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284513");
 		// tc_ID : 284513
-		book.click(driver, K2uxBookPage.previouspagebutton);
+		book.click(driver, K2uxBookPage.previouspagebutton); //the book is on page number 2
 		Thread.sleep(5000);
 		book.verifyPageNumber();
 		Log.testCaseResult();
@@ -91,11 +96,12 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		Log.message("Starting Test Case with tc_ID : 284517");
 		// tc_ID : 284517
-		login.select_random_book();
+		login.clickBookOne();
 		book.setBrowserSize(driver, 800, 567);
-		book.randomPageNumberInput();
-		book.verify(driver, K2uxBookPage.nextpagebutton);
-		book.verify(driver, K2uxBookPage.previouspagebutton);
+		book.randomPageNumberNGInput();
+		book.verify(driver, K2uxBookPage.nextpagebutton_ng);
+		book.click(driver, K2uxBookPage.nextpagebutton_ng);
+		book.verify(driver, K2uxBookPage.previouspagebutton_ng);
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		Log.testCaseResult();
 		Log.endTestCase();	

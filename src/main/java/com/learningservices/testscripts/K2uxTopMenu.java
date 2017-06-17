@@ -114,34 +114,34 @@ public class K2uxTopMenu extends BrowserDriver {
 		login.isTextPresent("Introduction");
 		Log.testCaseResult();
 		Log.endTestCase();	
-		Log.message("Starting Test Case with tc_ID : 284528");
-		// tc_ID : 284528
-		book.click(driver, K2uxBookPage.backtobookshelf);
-		book.verify(driver, K2uxLoginPage.k2avatarButton);
-		login.bookscount();
-		login.clickBookOne();
-		book.click(driver, K2uxBookPage.tableofcontent);
-		book.click(driver, K2uxLoginPage.bookOne_copyright);
-		Thread.sleep(5000);
-		login.isTextPresent("ISBN: 0133794741");
-		book.click(driver, K2uxLoginPage.bookOne_tothestudent);
-		Thread.sleep(5000);
-		login.isTextPresent("A Last Word...");
-		book.click(driver, K2uxLoginPage.bookOne_totheinstructor);
-		Thread.sleep(5000);
-		login.isTextPresent("Development Across the Life Span");
-		book.click(driver, K2uxLoginPage.bookOne_ancillaries);
-		Thread.sleep(5000);
-		login.isTextPresent("www.pearsonhighered.com");
-		Log.testCaseResult();
-		Log.endTestCase();	
+//		Log.message("Starting Test Case with tc_ID : 284528");
+//		 //tc_ID : 284528
+//    	book.click(driver, K2uxBookPage.backtobookshelf);
+//    	book.verify(driver, K2uxLoginPage.k2avatarButton);
+//		login.bookscount();
+//		login.clickBookOne();
+//		book.click(driver, K2uxBookPage.tableofcontent);
+//		book.click(driver, K2uxLoginPage.bookOne_copyright);
+//		Thread.sleep(5000);
+//		login.isTextPresent("ISBN: 0133794741");
+//		book.click(driver, K2uxLoginPage.bookOne_tothestudent);
+//		Thread.sleep(5000);
+//		login.isTextPresent("A Last Word...");
+//		book.click(driver, K2uxLoginPage.bookOne_totheinstructor);
+//		Thread.sleep(5000);
+//		login.isTextPresent("Development Across the Life Span");
+//		book.click(driver, K2uxLoginPage.bookOne_ancillaries);
+//		Thread.sleep(5000);
+//		login.isTextPresent("www.pearsonhighered.com");
+//		Log.testCaseResult();
+//		Log.endTestCase();	
 		Log.message("Starting Test Case with tc_ID : 284530");
 		// tc_ID : 284530
 		book.click(driver, K2uxBookPage.glossary);
 		book.verify(driver, K2uxLoginPage.bookOne_glossary_header);
-		Log.message("Starting Test Case with tc_ID : 284529");
 		Log.testCaseResult();
 		Log.endTestCase();	
+		Log.message("Starting Test Case with tc_ID : 284529");
 		// tc_ID : 284529
 		book.click(driver, K2uxBookPage.tableofcontent);
 		book.verify(driver, K2uxBookPage.closetableofcontent_glossary);

@@ -27,7 +27,7 @@ public class K2uxLogin extends BrowserDriver {
 	
 	@BeforeMethod()
 	public void waitForElements(){
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 	}
 	
 	@AfterClass()
@@ -70,10 +70,8 @@ public class K2uxLogin extends BrowserDriver {
 			login.enterUsername(username);
 			login.enterPassword(password);
 			book.click(driver, K2uxLoginPage.loginButton); //login complete.
-			book.verify(driver, K2uxLoginPage.k2avatarButton); //K2UX Avatar is present.
-			book.click(driver, K2uxLoginPage.bookOne);
-			//login.select_random_book(); //randomly a book is selected.
-			Thread.sleep(20000);
+			book.verify(driver, K2uxLoginPage.k2avatarButton);
+			login.clickBookOne();
 			book.verify(driver, K2uxLoginPage.k2avatarButton);
 			//verification of avatar on different page starts.
 			book.verify(driver, K2uxBookPage.pagenumber);
