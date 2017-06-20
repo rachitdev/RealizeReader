@@ -109,7 +109,7 @@ task test_k2ux_web (type: Test) {
     //print ">>Executing $testXMLFileName tests"
 }
 
-task test_K2ux_books (type: Test) {
+task test_k2ux_books (type: Test) {
 	systemProperties System.getProperties()
     testClassesDir = file('build/classes/main')	
     classpath = sourceSets.main.runtimeClasspath

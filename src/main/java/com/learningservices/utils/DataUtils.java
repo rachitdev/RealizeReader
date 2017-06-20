@@ -4,6 +4,7 @@ package com.learningservices.utils;
 //import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -127,6 +128,11 @@ public class DataUtils {
 	public static HashMap<String, String> testDatabyID(String testCaseId, String testClassName) {
 		String configSheetName = "Config";
 		return testDatabyID(testCaseId, testClassName, configSheetName);
+	}
+	
+	public static HashMap<String, String> testBookbyID(Serializable testCaseId, String testClassName) {
+		String configSheetName = "Config";
+		return testDatabyID((String)testCaseId, testClassName, configSheetName);
 	}
 			
 	/**

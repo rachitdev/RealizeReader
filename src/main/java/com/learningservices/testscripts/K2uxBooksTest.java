@@ -63,7 +63,7 @@ public class K2uxBooksTest extends BrowserDriver {
 		Serializable bid = "BID_" + str;
 		Log.message("The xpath to be accessed has an id: "+bid);
 		//starting logic to access book from excel sheet.
-		HashMap<String, String> bookData = DataUtils.testDatabyID((String) bid, "BookSelection");
+		HashMap<String, String> bookData = DataUtils.testBookbyID(bid, "BookSelection");
 		String book_xpath = bookData.get("Book_Xpath");
 		if (driver.findElement(By.xpath(book_xpath)).isDisplayed()){
 		bookElement = driver.findElement(By.xpath(book_xpath));
@@ -77,5 +77,9 @@ public class K2uxBooksTest extends BrowserDriver {
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		Thread.sleep(5000);
 		}
+		book.click(driver, K2uxLoginPage.k2avatarButton);
+		book.click(driver, K2uxLoginPage.signout);
+		Log.testCaseResult();
+		Log.endTestCase();	
 	}
 }
