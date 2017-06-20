@@ -6,7 +6,6 @@ package com.learningservices.testscripts;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
@@ -65,17 +64,16 @@ public class K2uxBooksTest extends BrowserDriver {
 		//starting logic to access book from excel sheet.
 		HashMap<String, String> bookData = DataUtils.testBookbyID(bid, "BookSelection");
 		String book_xpath = bookData.get("Book_Xpath");
-		if (driver.findElement(By.xpath(book_xpath)) != null){
+		if (driver.findElement(By.xpath(book_xpath)) != null)
+			{
 		bookElement = driver.findElement(By.xpath(book_xpath));
-		Log.message("Found "+ bookElement +" to click on book!");
+		Log.message("Found "+ bookElement +" to click and open the book!");
 		book.click(driver, bookElement);
-		Thread.sleep(15000);
 		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
 		book.click(driver, K2uxBookPage.backtobookshelf);
-		Thread.sleep(5000);
-		}else{
+			}else{
 		Log.message(bookElement +" not found!");
-		}
+					}
 		}
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);
