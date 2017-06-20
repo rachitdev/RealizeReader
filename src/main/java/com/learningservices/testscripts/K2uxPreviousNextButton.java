@@ -48,7 +48,6 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		K2uxBookPage book = new K2uxBookPage(driver);
 		String username = userData.get("Username");
 		String password = userData.get("Password");
-		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 		login.enterUsername(username);
 		login.enterPassword(password);
 		book.click(driver, K2uxLoginPage.loginButton); //login complete.

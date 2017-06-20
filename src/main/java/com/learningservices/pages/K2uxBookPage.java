@@ -16,7 +16,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.learningservices.utils.Log;
 
 /**
@@ -321,5 +320,6 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		driver.manage().window().setSize(dimension);
 		Log.message("Zoomed to " + x,y + " pixels!");
 	}
+	
 }
 
