@@ -222,6 +222,7 @@ public class K2uxMenuBar extends BrowserDriver {
 		driver.navigate().refresh();
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 8, description = "TC ID 277603")
 	public void verifyLongNameTruncation() throws InterruptedException, IOException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_14", "LoginCredentials");

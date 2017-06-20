@@ -35,6 +35,7 @@ public class K2uxLogin extends BrowserDriver {
 		driver.quit();
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Verify that the Student with K-2 UX flavor sees the same name and avatar", testName = "Login to k2ux application")
 	
 	public void loginK2User() throws Exception {
@@ -57,6 +58,7 @@ public class K2uxLogin extends BrowserDriver {
 			Log.endTestCase();
 	}
 
+	@SuppressWarnings("static-access")
 	@Test(priority = 2, description = "Verify that the Student with K2UX flavor sees his name and avatar in all pages of books while online")
 	public void avatarVerification() throws Exception {
 			HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");

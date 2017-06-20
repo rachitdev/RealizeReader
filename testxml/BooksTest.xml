@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RR-K2UX-Web Regression Suite">
+	<test name="K2uxLogin, K2uxBookshelf, K2uxPreviousNextButton, K2uxTopMenu, K2uxMenuBar">
+		<classes>
+			<class name="com.learningservices.testscripts.K2uxBooksTest">
+			</class>
+		</classes>
+	</test>
+</suite>

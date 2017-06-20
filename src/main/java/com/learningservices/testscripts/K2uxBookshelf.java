@@ -37,6 +37,7 @@ public class K2uxBookshelf extends BrowserDriver {
 		driver.quit();
 	}
 			
+	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 3, description = "TC ID 277575, 277576, 277577, 277580, 277581, 277582, 277583, 277584")
 	public void verifyRRLogo() throws InterruptedException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
@@ -114,6 +115,7 @@ public class K2uxBookshelf extends BrowserDriver {
 		Log.endTestCase();	
 	}
 	
+	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 4, description = "TC ID 277578")
 	public void noBooks() throws InterruptedException {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_13", "LoginCredentials");

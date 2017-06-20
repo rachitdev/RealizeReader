@@ -1,6 +1,7 @@
 package com.learningservices.pages;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.Log;
 
 /**
@@ -115,6 +118,8 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	@FindBy(xpath = "//button[@class = 'nav-back ng-binding disabled']")
 	public static WebElement disabledpreviouspagebutton_ng;
 	
+	public static WebElement bookElement;
+	
 	@Override
 	protected void load() {
 		if (!isPageLoaded) {
@@ -148,7 +153,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void click(WebDriver driver, WebElement element) {
+	public static void click(WebDriver driver, WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 		if (element.isEnabled()) {
@@ -321,5 +326,17 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		Log.message("Zoomed to " + x,y + " pixels!");
 	}
 	
+	public static void selectBook(WebDriver driver){
+		//starting logic to access book from excel sheet.
+		HashMap<String, String> bookData = DataUtils.testDatabyID("BID_01", "BookSelection");
+		String book_xpath = bookData.get("Book_Xpath");
+		if (driver.findElement(By.xpath(book_xpath)).isDisplayed()){
+			bookElement = driver.findElement(By.xpath(book_xpath));
+			Log.message("Found "+ bookElement +" to click on book!");
+		}else{
+			Log.message( bookElement +" not found!");
+		}
+		click(driver, bookElement);
+	}
 }
 
