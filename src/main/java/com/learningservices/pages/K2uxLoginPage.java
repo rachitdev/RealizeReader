@@ -9,7 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.learningservices.utils.Log;
 
 public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
@@ -105,13 +108,14 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 
 	@Override
 	protected void isLoaded() throws Error {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		try {
 			if (username.isDisplayed()){
 				isPageLoaded = true;
 				Log.message("Login page is displayed!", driver);	
 			}
 			else{
+				wait.until(ExpectedConditions.elementToBeClickable(bookOne));
 				if (bookOne.isEnabled()){
 					isPageLoaded = true;
 					Log.message("Bookshelf page is displayed!", driver);	
@@ -145,7 +149,8 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void clickBookOne() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.elementToBeClickable(bookOne));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", bookOne);
 		executor.executeScript("arguments[0].click();", bookOne);
@@ -157,7 +162,8 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void clickPrintableBook() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.elementToBeClickable(printable_book));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].scrollIntoView(true);", printable_book);
 		Thread.sleep(3000);
@@ -171,7 +177,8 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void clickNonPrintableBook() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.elementToBeClickable(nonPrintable_book));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].scrollIntoView(true);", nonPrintable_book);
 		Thread.sleep(3000);
@@ -185,7 +192,7 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void bookscount() {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		if (bookOne.isEnabled()){
 		List<WebElement> numberofbooks = driver.findElements(By.tagName("img"));
 		int booksCount = numberofbooks.size();
@@ -194,7 +201,7 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void select_random_book() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		if (bookOne.isEnabled()){
 		List<WebElement> books = driver.findElements(By.tagName("img"));
 		Random r = new Random();
@@ -209,17 +216,19 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 		Log.message("Random Book condition to be clickable is: " + bool);
 	
 		if (!bool) {
+			wait.until(ExpectedConditions.elementToBeClickable(printable_book));
 			executor.executeScript("arguments[0].scrollIntoView(true);", printable_book);
 			Thread.sleep(3000);
 			executor.executeScript("arguments[0].style.border='3px solid red'", printable_book);
 			executor.executeScript("arguments[0].click();", printable_book);
 			Log.message("Opening printable book!");
-			if (K2uxBookPage.nextpagebutton.isEnabled()) {
+			if (K2uxBookPage.nextpagebutton.isDisplayed()) {
 				Log.message("Next Page button is present, book is open!", driver);
-			} else {
+				} else {
 				Log.message("Next Page button is absent, book is not open!", driver);
 			}
 		} else {
+			wait.until(ExpectedConditions.elementToBeClickable(books.get(randomBook)));
 			executor.executeScript("arguments[0].click();", books.get(randomBook));
 			// Clicking on the random book in the list of bookshelf.
 			Log.message("Opening the above mentioned book!");

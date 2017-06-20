@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -38,16 +37,12 @@ public class K2uxMenuBar extends BrowserDriver {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 	
-	@AfterClass()
-	public void driverQuit() throws InterruptedException{driver.quit();}
-	
 	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 7, description = "TC ID 277589, 277590, 277591, 277592, 277593, 277594, 277595, 277596, 277597, 277600, 277602, 287969, 287970")
 	public void verifyToggle() throws InterruptedException, IOException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		String username = userData.get("Username");
 		String password = userData.get("Password");
 		login.enterUsername(username);
@@ -153,15 +148,6 @@ public class K2uxMenuBar extends BrowserDriver {
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		Log.testCaseResult();
 		Log.endTestCase();	
-		// tc_ID :277598
-		Log.message("Starting Test Case with tc_ID : 277598");
-		book.click(driver, K2uxLoginPage.toggle);
-		book.setBrowserSize(driver, 800, 576);
-		book.verify(driver, K2uxLoginPage.onlineIndicator);
-		book.click(driver, K2uxLoginPage.toggle);
-		driver.manage().window().maximize();
-		Log.testCaseResult();
-		Log.endTestCase();	
 		// tc_ID :277600
 		Log.message("Starting Test Case with tc_ID : 277600");
 		login.select_random_book();
@@ -174,18 +160,6 @@ public class K2uxMenuBar extends BrowserDriver {
 		book.getBGColor(driver, K2uxBookPage.fontsetting);
 		book.click(driver, K2uxLoginPage.toggle);
 		book.click(driver, K2uxBookPage.backtobookshelf);
-		Log.testCaseResult();
-		Log.endTestCase();	
-		// tc_ID :277601
-		Log.message("Starting Test Case with tc_ID : 277601");
-		login.select_random_book();
-		book.click(driver, K2uxLoginPage.toggle);
-		book.setBrowserSize(driver, 800, 767);
-		book.verify(driver, K2uxBookPage.printthispage);
-		book.verify(driver, K2uxBookPage.bookinfo);
-		book.verify(driver, K2uxLoginPage.onlineIndicator);
-		book.click(driver, K2uxLoginPage.toggle);
-		driver.manage().window().maximize();
 		Log.testCaseResult();
 		Log.endTestCase();	
 		// tc_ID :277602
@@ -221,13 +195,37 @@ public class K2uxMenuBar extends BrowserDriver {
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		Log.testCaseResult();
 		Log.endTestCase();	
+		// tc_ID :277598
+		Log.message("Starting Test Case with tc_ID : 277598");
+		book.click(driver, K2uxLoginPage.toggle);
+		book.setBrowserSize(driver, 800, 576);
+		book.verify(driver, K2uxLoginPage.onlineIndicator);
+		book.click(driver, K2uxLoginPage.toggle);
+		driver.manage().window().maximize();
+		Log.testCaseResult();
+		Log.endTestCase();	
+		// tc_ID :277601
+		Log.message("Starting Test Case with tc_ID : 277601");
+		login.select_random_book();
+		book.click(driver, K2uxLoginPage.toggle);
+		book.setBrowserSize(driver, 800, 767);
+		book.verify(driver, K2uxBookPage.printthispage);
+		book.verify(driver, K2uxBookPage.bookinfo);
+		book.verify(driver, K2uxLoginPage.onlineIndicator);
+		book.click(driver, K2uxLoginPage.toggle);
+		driver.manage().window().maximize();
+		Log.testCaseResult();
+		Log.endTestCase();	
+		book.click(driver, K2uxBookPage.backtobookshelf);
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);
+		driver.navigate().refresh();
 	}
 	
 	@Test(enabled = true, priority = 8, description = "TC ID 277603")
 	public void verifyLongNameTruncation() throws InterruptedException, IOException  {
 		HashMap<String, String> userData = DataUtils.testDatabyID("tc_14", "LoginCredentials");
+		driver.navigate().refresh();
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
 		String username = userData.get("Username");
@@ -237,10 +235,16 @@ public class K2uxMenuBar extends BrowserDriver {
 		book.click(driver, K2uxLoginPage.loginButton); //login complete.
 		String fName = K2uxLoginPage.k2avatarButton.getText();
 		Log.message("The First Name is: " + fName, driver);
+		if (fName != "RealizeReaderELUXLongFirstLastName" ){
+			Log.message("The First Name got Truncated on Avatar!", driver);
+		}else {
+			Log.message("The First Name is not Truncated on Avatar!", driver);
+		}
 		Log.testCaseResult();
 		Log.endTestCase();	
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);
+		driver.quit();
 		}
 	
 }
