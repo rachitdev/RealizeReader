@@ -59,23 +59,23 @@ public class K2uxBooksTest extends BrowserDriver {
 		//Iterator logic to iterate through first 10 books.
 		for (int i=1;i<=10;i++)
 		{      
-		String str = String.valueOf(i);
-		Serializable bid = "BID_" + str;
+		Serializable itr = String.valueOf(i);
+		Serializable bid = "BID_" + itr;
 		Log.message("The xpath to be accessed has an id: "+bid);
 		//starting logic to access book from excel sheet.
 		HashMap<String, String> bookData = DataUtils.testBookbyID(bid, "BookSelection");
 		String book_xpath = bookData.get("Book_Xpath");
-		if (driver.findElement(By.xpath(book_xpath)).isDisplayed()){
+		if (driver.findElement(By.xpath(book_xpath)) != null){
 		bookElement = driver.findElement(By.xpath(book_xpath));
 		Log.message("Found "+ bookElement +" to click on book!");
-		}else{
-		Log.message(bookElement +" not found!");
-		}
 		book.click(driver, bookElement);
 		Thread.sleep(15000);
 		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		Thread.sleep(5000);
+		}else{
+		Log.message(bookElement +" not found!");
+		}
 		}
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);
