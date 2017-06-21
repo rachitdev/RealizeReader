@@ -3,7 +3,6 @@
  */
 package com.learningservices.testscripts;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +11,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
-import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.EmailReport;
 import com.learningservices.utils.Log;
 import com.learningservices.utils.BrowserDriver;
@@ -41,16 +39,11 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 	}
 	
 	@SuppressWarnings("static-access")
-	@Test(enabled = true, priority = 5, description = "TC ID 284512, 284513, 284514, 284515, 284516  ")
+	@Test(enabled = true, priority = 5, description = "TC ID 284512, 284513, 284514, 284515, 284516, 284517")
 	public void verifybooknavigationbuttons() throws InterruptedException, Exception  {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		login.autoLogin("tc_01");
 		login.clickBookOne();
 		Log.message("Starting Test Case with tc_ID : 284514");
 		// tc_ID :284514
@@ -93,6 +86,8 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.press_enter(driver, K2uxBookPage.pagenumber);
 		book.verifyPageNumber();
 		book.click(driver, K2uxBookPage.backtobookshelf);
+		Log.testCaseResult();
+		Log.endTestCase();
 		Log.message("Starting Test Case with tc_ID : 284517");
 		// tc_ID : 284517
 		login.clickBookOne();

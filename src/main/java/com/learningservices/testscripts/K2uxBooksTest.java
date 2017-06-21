@@ -47,15 +47,19 @@ public class K2uxBooksTest extends BrowserDriver {
 	@SuppressWarnings("static-access")
 	@Test(enabled = true, description = "Testing multiple books")
 	public void verifybooknavigationbuttons() throws InterruptedException, Exception  {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
+//		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
+//		K2uxLoginPage login = new K2uxLoginPage(driver);
+//		K2uxBookPage book = new K2uxBookPage(driver);
+//		String username = userData.get("Username");
+//		String password = userData.get("Password");
+//		login.enterUsername(username);
+//		login.enterPassword(password);
+//		book.click(driver, K2uxLoginPage.loginButton); //login complete.
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		login.autoLogin("tc_01");
 		//Iterator logic to iterate through first 10 books.
+		
 		for (int i=1;i<=10;i++)
 		{      
 		Serializable itr = String.valueOf(i);
@@ -71,8 +75,12 @@ public class K2uxBooksTest extends BrowserDriver {
 		book.click(driver, bookElement);
 		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
 		book.click(driver, K2uxBookPage.backtobookshelf);
-			}else{
-		Log.message(bookElement +" not found!");
+		Log.testCaseResult();
+		Log.endTestCase();
+			}if (driver.findElement(By.xpath(book_xpath)) == null){
+		Log.message(bookElement +" not found," + " Or Serialization Failed!");
+		Log.testCaseResult();
+		Log.endTestCase();
 					}
 		}
 		book.click(driver, K2uxLoginPage.k2avatarButton);

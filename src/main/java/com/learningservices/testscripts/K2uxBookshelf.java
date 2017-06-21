@@ -2,7 +2,6 @@
  * 
  */
 package com.learningservices.testscripts;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +11,6 @@ import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
 import com.learningservices.utils.BrowserDriver;
-import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.EmailReport;
 import com.learningservices.utils.Log;
 /**
@@ -40,16 +38,11 @@ public class K2uxBookshelf extends BrowserDriver {
 	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 3, description = "TC ID 277575, 277576, 277577, 277580, 277581, 277582, 277583, 277584")
 	public void verifyRRLogo() throws InterruptedException  {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
-		// tc_ID :277575
-		Log.message("Starting Test Case with tc_ID : 277575");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		login.autoLogin("tc_01");
+		// tc_ID :277575
+		Log.message("Starting Test Case with tc_ID : 277575");
 		book.verify(driver, K2uxLoginPage.k2avatarButton);
 		Log.testCaseResult();
 		Log.endTestCase();	
@@ -118,17 +111,12 @@ public class K2uxBookshelf extends BrowserDriver {
 	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 4, description = "TC ID 277578")
 	public void noBooks() throws InterruptedException {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_13", "LoginCredentials");
-		// tc_ID :277578
-		driver.navigate().refresh();
-		Log.message("Starting Test Case with tc_ID : 277578");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		// tc_ID :277578
+		driver.navigate().refresh();
+		login.autoLogin("tc_13");
+		Log.message("Starting Test Case with tc_ID : 277578");
 		login.isTextPresent("There are no books on your shelf.");
 		//login.bookscount();
 		book.click(driver, K2uxLoginPage.k2avatarButton);

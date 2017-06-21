@@ -4,7 +4,6 @@
 package com.learningservices.testscripts;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeClass;
@@ -14,7 +13,6 @@ import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
 import com.learningservices.utils.BrowserDriver;
-import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.EmailReport;
 import com.learningservices.utils.Log;
 
@@ -40,14 +38,9 @@ public class K2uxMenuBar extends BrowserDriver {
 	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 7, description = "TC ID 277589, 277590, 277591, 277592, 277593, 277594, 277595, 277596, 277597, 277600, 277602, 287969, 287970")
 	public void verifyToggle() throws InterruptedException, IOException  {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		login.autoLogin("tc_01");
 		// tc_ID :277589
 		Log.message("Starting Test Case with tc_ID : 277589");
 		book.verify(driver, K2uxLoginPage.toggle);
@@ -219,21 +212,15 @@ public class K2uxMenuBar extends BrowserDriver {
 		book.click(driver, K2uxBookPage.backtobookshelf);
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);
-		driver.navigate().refresh();
 	}
 	
 	@SuppressWarnings("static-access")
 	@Test(enabled = true, priority = 8, description = "TC ID 277603")
 	public void verifyLongNameTruncation() throws InterruptedException, IOException  {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_14", "LoginCredentials");
 		driver.navigate().refresh();
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		login.autoLogin("tc_14");
 		String fName = K2uxLoginPage.k2avatarButton.getText();
 		Log.message("The First Name is: " + fName, driver);
 		if (fName != "RealizeReaderELUXLongFirstLastName" ){

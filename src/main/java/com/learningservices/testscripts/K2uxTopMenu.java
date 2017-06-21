@@ -3,7 +3,6 @@
  */
 package com.learningservices.testscripts;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +12,6 @@ import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
 import com.learningservices.utils.BrowserDriver;
-import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.EmailReport;
 import com.learningservices.utils.Log;
 
@@ -41,17 +39,12 @@ public class K2uxTopMenu extends BrowserDriver {
 	}
 	
 	@SuppressWarnings("static-access")
-	@Test(enabled = true, priority = 6, description = "TC ID 284518, 284519, 284520, 284521, 284522, 284523, 284524, 284526, 284527, 284528, 284529, 284530")
+	@Test(enabled = true, priority = 6, description = "TC ID 284518, 284519, 284520, 284521, 284522,"
+			+ " 284523, 284524, 284526, 284527, 284528, 284529, 284530")
 	public void verifyTopMenu() throws InterruptedException  {
-		HashMap<String, String> userData = DataUtils.testDatabyID("tc_01", "LoginCredentials");
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
-		driver.navigate().refresh();
-		String username = userData.get("Username");
-		String password = userData.get("Password");
-		login.enterUsername(username);
-		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		login.autoLogin("tc_01");
 		login.select_random_book();
 		Log.message("Starting Test Case with tc_ID : 284518");
 		// tc_ID :284518

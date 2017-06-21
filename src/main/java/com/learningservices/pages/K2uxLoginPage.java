@@ -1,5 +1,6 @@
 package com.learningservices.pages;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.Log;
 
 public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
@@ -146,6 +148,18 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	public void verifyTitle() {
 		String str = driver.getTitle();
 		Log.message("Title of Page is: " + str);
+	}
+	
+	@SuppressWarnings("static-access")
+	public void autoLogin(String testCaseID){
+		HashMap<String, String> userData = DataUtils.testDatabyID(testCaseID, "LoginCredentials");
+		K2uxLoginPage login = new K2uxLoginPage(driver);
+		K2uxBookPage book = new K2uxBookPage(driver);
+		String username = userData.get("Username");
+		String password = userData.get("Password");
+		login.enterUsername(username);
+		login.enterPassword(password);
+		book.click(driver, K2uxLoginPage.loginButton); //login complete.
 	}
 
 	public void clickBookOne() throws InterruptedException {
