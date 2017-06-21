@@ -157,9 +157,11 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 		K2uxBookPage book = new K2uxBookPage(driver);
 		String username = userData.get("Username");
 		String password = userData.get("Password");
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.elementToBeClickable(loginButton));
 		login.enterUsername(username);
 		login.enterPassword(password);
-		book.click(driver, K2uxLoginPage.loginButton); //login complete.
+		book.click(driver, loginButton); //login complete.
 	}
 
 	public void clickBookOne() throws InterruptedException {
@@ -215,7 +217,7 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	}
 
 	public void select_random_book() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		if (bookOne.isEnabled()){
 		List<WebElement> books = driver.findElements(By.tagName("img"));
 		Random r = new Random();

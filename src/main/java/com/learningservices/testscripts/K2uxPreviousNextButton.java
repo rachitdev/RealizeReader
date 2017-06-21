@@ -3,6 +3,7 @@
  */
 package com.learningservices.testscripts;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -45,6 +46,18 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		K2uxBookPage book = new K2uxBookPage(driver);
 		login.autoLogin("tc_01");
 		login.clickBookOne();
+		K2uxPreviousNextButton.testSteps();
+		Thread.sleep(5000);
+		book.click(driver, K2uxLoginPage.k2avatarButton);
+		book.click(driver, K2uxLoginPage.signout);
+		Log.testCaseResult();
+		Log.endTestCase();	
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void testSteps() throws InterruptedException, IOException{
+		K2uxLoginPage login = new K2uxLoginPage(driver);
+		K2uxBookPage book = new K2uxBookPage(driver);
 		Log.message("Starting Test Case with tc_ID : 284514");
 		// tc_ID :284514
 		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
@@ -96,14 +109,10 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.verify(driver, K2uxBookPage.nextpagebutton_ng);
 		book.click(driver, K2uxBookPage.nextpagebutton_ng);
 		book.verify(driver, K2uxBookPage.previouspagebutton_ng);
+		driver.manage().window().maximize();
 		book.click(driver, K2uxBookPage.backtobookshelf);
+		driver.manage().window().maximize();
 		Log.testCaseResult();
-		Log.endTestCase();	
-		Thread.sleep(5000);
-		book.click(driver, K2uxLoginPage.k2avatarButton);
-		book.click(driver, K2uxLoginPage.signout);
-		Log.testCaseResult();
-		Log.endTestCase();	
+		Log.endTestCase();
 	}
-	
 }

@@ -65,8 +65,8 @@ public class K2uxBooksTest extends BrowserDriver {
 		Log.message("Found "+ bookElement +" to click and open the book!");
 		//Logic to find xpath from excel sheet ends.
 		book.click(driver, bookElement);
-		book.verify(driver, K2uxBookPage.disabledpreviouspagebutton);
-		book.click(driver, K2uxBookPage.backtobookshelf);
+		Log.message("Starting Test Cases on: " + bid);
+		K2uxPreviousNextButton.testSteps();
 		Log.testCaseResult();
 		Log.endTestCase();
 			}if (book_xpath == null){

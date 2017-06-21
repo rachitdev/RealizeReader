@@ -22,7 +22,7 @@ public abstract class BrowserDriver {
     }
 
     // Define objects
-    protected WebDriver driver;
+    protected static WebDriver driver;
 
     // Initialize objects
     protected PropertyReader propertyReader = new PropertyReader();
