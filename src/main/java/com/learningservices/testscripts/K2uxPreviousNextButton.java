@@ -34,28 +34,26 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 	
-	@AfterClass()
-	public void driverQuit(){
-		driver.quit();
-	}
-	
 	@SuppressWarnings("static-access")
-	@Test(enabled = true, priority = 5, description = "TC ID 284512, 284513, 284514, 284515, 284516, 284517")
-	public void verifybooknavigationbuttons() throws InterruptedException, Exception  {
-		K2uxLoginPage login = new K2uxLoginPage(driver);
+	@AfterClass()
+	public void driverQuit() throws InterruptedException{
 		K2uxBookPage book = new K2uxBookPage(driver);
-		login.autoLogin("tc_01");
-		login.clickBookOne();
-		K2uxPreviousNextButton.testSteps();
 		Thread.sleep(5000);
 		book.click(driver, K2uxLoginPage.k2avatarButton);
 		book.click(driver, K2uxLoginPage.signout);
-		Log.testCaseResult();
-		Log.endTestCase();	
+		driver.quit();
+	}
+	
+	@Test(enabled = true, priority = 5, description = "TC ID 284512, 284513, 284514, 284515, 284516, 284517")
+	public static void verifybooknavigationbuttons() throws InterruptedException, Exception  {
+		K2uxLoginPage login = new K2uxLoginPage(driver);
+		login.autoLogin("tc_01");
+		login.clickBookOne();
+		K2uxPreviousNextButton.testStepsOfverifybooknavigationbuttons();
 	}
 	
 	@SuppressWarnings("static-access")
-	public static void testSteps() throws InterruptedException, IOException{
+	public static void testStepsOfverifybooknavigationbuttons() throws InterruptedException, IOException{
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
 		Log.message("Starting Test Case with tc_ID : 284514");
@@ -111,7 +109,6 @@ public class K2uxPreviousNextButton extends BrowserDriver {
 		book.verify(driver, K2uxBookPage.previouspagebutton_ng);
 		driver.manage().window().maximize();
 		book.click(driver, K2uxBookPage.backtobookshelf);
-		driver.manage().window().maximize();
 		Log.testCaseResult();
 		Log.endTestCase();
 	}

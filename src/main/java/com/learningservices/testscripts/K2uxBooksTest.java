@@ -37,8 +37,12 @@ public class K2uxBooksTest extends BrowserDriver {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 	
+	@SuppressWarnings("static-access")
 	@AfterClass()
 	public void driverQuit(){
+		K2uxBookPage book = new K2uxBookPage(driver);
+		book.click(driver, K2uxLoginPage.k2avatarButton);
+		book.click(driver, K2uxLoginPage.signout);
 		driver.quit();
 	}
 	
@@ -59,26 +63,23 @@ public class K2uxBooksTest extends BrowserDriver {
 		//Starting logic to access xpath from excel sheet.
 		HashMap<String, String> bookData = DataUtils.testBookbyID(bid, "BookSelection");
 		String book_xpath = bookData.get("Book_Xpath");
-		if (book_xpath != null && driver.findElement(By.xpath(book_xpath)).isEnabled())
+		if (book_xpath != null)
 			{
 		bookElement = driver.findElement(By.xpath(book_xpath));
 		Log.message("Found "+ bookElement +" to click and open the book!");
 		//Logic to find xpath from excel sheet ends.
 		book.click(driver, bookElement);
 		Log.message("Starting Test Cases on: " + bid);
-		K2uxPreviousNextButton.testSteps();
+		K2uxPreviousNextButton.testStepsOfverifybooknavigationbuttons();
+		Log.message("Test Cases passed for Book ID: " + bid);
 		Log.testCaseResult();
 		Log.endTestCase();
-			}if (book_xpath == null){
+			}else{
 		Log.message(bookElement +" not found," + " Or Serialization Failed!");
 		//Serialization failed.
 		Log.testCaseResult();
 		Log.endTestCase();
-									}
+				 }
 		}
-		book.click(driver, K2uxLoginPage.k2avatarButton);
-		book.click(driver, K2uxLoginPage.signout);
-		Log.testCaseResult();
-		Log.endTestCase();	
 	}
 }

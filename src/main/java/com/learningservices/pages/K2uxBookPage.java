@@ -1,7 +1,6 @@
 package com.learningservices.pages;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -17,8 +16,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.Log;
 
 /**
@@ -117,8 +114,6 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 
 	@FindBy(xpath = "//button[@class = 'nav-back ng-binding disabled']")
 	public static WebElement disabledpreviouspagebutton_ng;
-	
-	public static WebElement bookElement;
 	
 	@Override
 	protected void load() {
@@ -232,8 +227,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	}
 
 	public void verify(WebDriver driver, WebElement element) {
-//		WebDriverWait wait = new WebDriverWait(driver, 60);
-//		wait.until(ExpectedConditions.visibilityOf(element));
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		if (element.isDisplayed()) {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].style.border='3px solid red'", element);
@@ -323,20 +317,10 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 	{
 		Dimension dimension = new Dimension(x, y);
 		driver.manage().window().setSize(dimension);
-		Log.message("Zoomed to " + x,y + " pixels!");
+		String a = String.valueOf(x);
+		String b = String.valueOf(y);
+		Log.message("Browser size is now: " + a,b);
 	}
-	
-	public static void selectBook(WebDriver driver){
-		//starting logic to access book from excel sheet.
-		HashMap<String, String> bookData = DataUtils.testDatabyID("BID_01", "BookSelection");
-		String book_xpath = bookData.get("Book_Xpath");
-		if (driver.findElement(By.xpath(book_xpath)).isDisplayed()){
-			bookElement = driver.findElement(By.xpath(book_xpath));
-			Log.message("Found "+ bookElement +" to click on book!");
-		}else{
-			Log.message( bookElement +" not found!");
-		}
-		click(driver, bookElement);
-	}
+		
 }
 
