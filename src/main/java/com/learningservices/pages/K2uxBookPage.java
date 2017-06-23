@@ -154,6 +154,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		if (element.isEnabled()) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].style.border='3px solid red'", element);
+		executor.executeScript("arguments[0].scrollIntoView(true);", element);
 		executor.executeScript("arguments[0].click();", element);
 		executor.executeScript("arguments[0].style.border=''", element);
 		Log.message("Clicked on " + element, driver);

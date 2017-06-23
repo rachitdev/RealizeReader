@@ -15,6 +15,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.learningservices.pages.K2uxBookPage;
 import com.learningservices.pages.K2uxLoginPage;
+import com.learningservices.pages.web.NoteBookPage;
 import com.learningservices.utils.BrowserDriver;
 import com.learningservices.utils.DataUtils;
 import com.learningservices.utils.EmailReport;
@@ -49,7 +50,7 @@ public class K2uxBooksTest extends BrowserDriver {
 	public static WebElement bookElement;
 	
 	@SuppressWarnings("static-access")
-	@Test(enabled = true, description = "Testing multiple books")
+	@Test(enabled = false, description = "Testing multiple books")
 	public void testMultipleBooks() throws InterruptedException, Exception  {
 		K2uxLoginPage login = new K2uxLoginPage(driver);
 		K2uxBookPage book = new K2uxBookPage(driver);
@@ -82,4 +83,16 @@ public class K2uxBooksTest extends BrowserDriver {
 				 }
 		}
 	}
+	
+	@Test(enabled = true, description = "Testing multiple books")
+	public void SelectBookProgrammatically() throws InterruptedException, Exception 
+	{
+		K2uxLoginPage login = new K2uxLoginPage(driver);
+		K2uxBookPage book = new K2uxBookPage(driver);
+		login.autoLogin("tc_15");
+		login.selectbookByID(driver, "18VV9Q6D7AH");
+		book.verify(driver, NoteBookPage.goTOField);
+		Thread.sleep(2000);
+	}
+	
 }

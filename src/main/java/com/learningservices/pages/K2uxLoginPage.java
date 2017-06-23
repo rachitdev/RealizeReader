@@ -272,7 +272,7 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 	
 	public void selectbookByID(WebDriver driver, String bookID){
 		List<WebElement> b = driver.findElements(By.xpath("//a[@href = '#/book/"+bookID+"/page/1']//following::img[1]"));
-		Log.message("The size of List with " + bookID + "is: " + b.size());
+		Log.message("The size of List with " + bookID + " is: " + b.size());
 		bookWithID = b.get(0);
 		K2uxBookPage.click(driver, bookWithID);
 	}
