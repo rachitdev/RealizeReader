@@ -175,6 +175,14 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 			Log.message(element + " not found!", driver);
 		}
 	}
+	
+	public void scrollToElement(WebDriver driver, WebElement element){
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].style.border='3px solid red'", element);
+		executor.executeScript("arguments[0].scrollIntoView(true);", element);
+		Log.message("Scrolled to " + element);
+		executor.executeScript("arguments[0].style.border=''", element);
+	}
 
 	public void randomPageNumberInput() {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
@@ -231,6 +239,7 @@ public class K2uxBookPage extends LoadableComponent<K2uxBookPage> {
 		if (element.isDisplayed()) {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].style.border='3px solid red'", element);
+			scrollToElement(driver, element);
 			Log.message(element + " is present!", driver);
 			executor.executeScript("arguments[0].style.border=''", element);
 		} else {

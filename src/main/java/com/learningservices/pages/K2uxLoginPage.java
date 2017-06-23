@@ -100,6 +100,8 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 
 	@FindBy(xpath = "//img[@csp-src = 'https://content.stg-openclass.com/eps/pearson-reader/api/item/e4013832-b5fb-4690-a984-b4070b833696/3/file/cover_thumbnail.jpg']")
 	public static WebElement nonPrintable_book;
+	
+	public static WebElement bookWithID;
 
 	@Override
 	protected void load() {
@@ -266,6 +268,13 @@ public class K2uxLoginPage extends LoadableComponent<K2uxLoginPage> {
 			Log.message(text + " (text is not present here!)");
 			return false;
 		}
+	}
+	
+	public void selectbookByID(WebDriver driver, String bookID){
+		List<WebElement> b = driver.findElements(By.xpath("//a[@href = '#/book/"+bookID+"/page/1']//following::img[1]"));
+		Log.message("The size of List with " + bookID + "is: " + b.size());
+		bookWithID = b.get(0);
+		K2uxBookPage.click(driver, bookWithID);
 	}
 
 }
